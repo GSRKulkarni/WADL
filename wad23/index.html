@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PICT Clubs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- jQuery Mobile CSS & JS -->
+    <link
+      rel="stylesheet"
+      href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <style>
+      .club-image {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 10px;
+      }
+      .club-box {
+        margin-bottom: 20px;
+      }
+      .pict-header {
+        background: #004d99;
+        color: white;
+        text-align: center;
+        padding: 10px 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div data-role="page" id="home" data-theme="b">
+      <div data-role="header" class="pict-header">
+        <h1>PICT Clubs</h1>
+      </div>
+
+      <div role="main" class="ui-content">
+        <!-- Coding Club -->
+        <div class="club-box">
+          <h2>Coding Club</h2>
+          <p>
+            <strong>Description:</strong> A community for competitive
+            programming, development, and algorithmic thinking.
+          </p>
+          <p><strong>Achievements:</strong></p>
+          <ul>
+            <li>Winners at CodeChef Campus Chapter Contest</li>
+            <li>Top 50 in ACM ICPC Regionals</li>
+          </ul>
+          <img
+            src="https://via.placeholder.com/300x200?text=Coding+Club"
+            alt="Coding Club"
+            class="club-image"
+          />
+        </div>
+
+        <!-- Robotics Club -->
+        <div class="club-box">
+          <h2>Robotics Club</h2>
+          <p>
+            <strong>Description:</strong> Designing and building robots for
+            competitions and innovation.
+          </p>
+          <p><strong>Achievements:</strong></p>
+          <ul>
+            <li>Finalists in Robocon India</li>
+            <li>First Prize in State-Level Robotics Expo</li>
+          </ul>
+          <img
+            src="https://via.placeholder.com/300x200?text=Robotics+Club"
+            alt="Robotics Club"
+            class="club-image"
+          />
+        </div>
+
+        <!-- Dance Club -->
+        <div class="club-box">
+          <h2>Dance Club</h2>
+          <p>
+            <strong>Description:</strong> Passionate about classical,
+            contemporary, and street dance forms. Performs at cultural
+            festivals.
+          </p>
+          <p><strong>Achievements:</strong></p>
+          <ul>
+            <li>Winners at Symbiosis Youth Festival</li>
+            <li>Performed at Pune Times Fashion Week</li>
+          </ul>
+          <img
+            src="https://via.placeholder.com/300x200?text=Dance+Club"
+            alt="Dance Club"
+            class="club-image"
+          />
+        </div>
+      </div>
+
+      <div data-role="footer" data-position="fixed">
+        <h4>&copy; 2025 PICT Student Activities</h4>
+      </div>
+    </div>
+  </body>
+</html>

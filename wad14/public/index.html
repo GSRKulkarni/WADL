@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Users</h1>
+    <ul id="userList"></ul>
+    <script>
+        fetch('/api/users')
+        .then(res =>res.json())
+        .then(data => {
+            console.log(data);
+            ele = document.getElementById('userList');
+            let listItem ='';
+            for(let i=0;i<data.length;i++){
+                listItem += `<li>${data[i].name} (${data[i].age})</li>`;
+            }
+            ele.innerHTML = listItem;
+        });
+    </script>
+</body>
+</html>

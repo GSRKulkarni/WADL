@@ -1,0 +1,16 @@
+body {
+	font-family: sans-serif;
+	text-align: center;
+	padding: 50px;
+	background-color: #f7f7f7;
+      }
+      h1 {
+	color: #2e6da4;
+      }
+      a {
+	display: block;
+	margin-top: 20px;
+	color: #d9534f;
+	text-decoration: none;
+      }
+      

@@ -1,0 +1,57 @@
+<%- include('partials/header') %>
+
+<!-- (i) List Songs sung by Specified Singer from specified film -->
+<div class="page-header">
+  <h1>Songs by Singer &amp; Film</h1>
+  <p>Find songs by a specific singer from a specific film</p>
+</div>
+
+<div class="card">
+  <form action="/by-singer-film" method="GET" class="search-form">
+    <div class="form-group">
+      <label for="singer">Singer</label>
+      <input type="text" id="singer" name="singer" placeholder="e.g. Arijit Singh" value="<%= singer %>" required />
+    </div>
+    <div class="form-group">
+      <label for="film">Film</label>
+      <input type="text" id="film" name="film" placeholder="e.g. Aashiqui 2" value="<%= film %>" required />
+    </div>
+    <button type="submit" class="btn btn-primary">🔍 Search</button>
+  </form>
+</div>
+
+<% if (singer && film) { %>
+  <span class="badge">Results: <%= songs.length %> song(s)</span>
+  <div class="card">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Song Name</th>
+            <th>Film</th>
+            <th>Music Director</th>
+            <th>Singer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (songs.length === 0) { %>
+            <tr><td colspan="5" class="no-results">No songs found for this combination.</td></tr>
+          <% } else { %>
+            <% songs.forEach((song, i) => { %>
+              <tr>
+                <td><%= i + 1 %></td>
+                <td><%= song.Songname %></td>
+                <td><%= song.Film %></td>
+                <td><%= song.Music_director %></td>
+                <td><%= song.Singer %></td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

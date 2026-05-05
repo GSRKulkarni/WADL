@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "designation": "Software Engineer",
+    "department": "Engineering",
+    "salary": 80000,
+    "profile_image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 2,
+    "name": "Jane Smith",
+    "designation": "Project Manager",
+    "department": "Management",
+    "salary": 95000,
+    "profile_image": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 3,
+    "name": "Alice Johnson",
+    "designation": "HR Specialist",
+    "department": "Human Resources",
+    "salary": 60000,
+    "profile_image": "https://via.placeholder.com/150"
+  }
+]

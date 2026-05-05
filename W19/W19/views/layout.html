@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} - Student Marks</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1>Student Marks System</h1>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/students">All Students</a>
+      <a href="/students/dsbda-above-20">DSBDA &gt; 20</a>
+      <a href="/students/all-above-25">All Subjects &gt; 25</a>
+      <a href="/students/wad-cc-below-40">WAD &amp; CC &lt; 40</a>
+      <a href="/students/update">Update Marks</a>
+      <a href="/students/delete">Delete Student</a>
+    </div>
+  </nav>
+  <div class="container">
+    {{CONTENT}}
+  </div>
+</body>
+</html>

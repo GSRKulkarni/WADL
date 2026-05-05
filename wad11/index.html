@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration and Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    .container { max-width: 500px; margin: auto; background: #fff; padding: 20px; border-radius: 10px; }
+    .form-group { margin-bottom: 15px; }
+    input, select { width: 100%; padding: 10px; }
+    button { padding: 10px 20px; margin-top: 10px; }
+    .error { color: red; font-size: 0.9em; }
+    .success { color: green; }
+    #userList { margin-top: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #eee; }
+    .hidden { display: none; }
+    .toggle-link { color: blue; cursor: pointer; text-decoration: underline; margin-top: 15px; display: inline-block; }
+    .form-header { display: flex; justify-content: space-between; align-items: center; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div id="registerSection">
+    <div class="form-header">
+      <h2>Register</h2>
+    </div>
+    <form id="registerForm">
+      <div class="form-group"><input type="text" id="name" placeholder="Full Name" required /></div>
+      <div class="form-group"><input type="email" id="email" placeholder="Email" required /></div>
+      <div class="form-group"><input type="text" id="mobile" placeholder="Mobile (10 digits)" required /></div>
+      <div class="form-group"><input type="date" id="dob" required /></div>
+      <div class="form-group"><input type="text" id="city" placeholder="City" required /></div>
+      <div class="form-group"><input type="text" id="address" placeholder="Address" required /></div>
+      <div class="form-group"><input type="text" id="regUsername" placeholder="Username" required /></div>
+      <div class="form-group"><input type="password" id="regPassword" placeholder="Password (min 6 chars)" required /></div>
+      <button type="submit">Register</button>
+      <p id="registerMessage" class="error"></p>
+    </form>
+    <p>Already have an account? <span class="toggle-link" id="showLogin">Login here</span></p>
+  </div>
+
+  <div id="loginSection" class="hidden">
+    <div class="form-header">
+      <h2>Login</h2>
+    </div>
+    <form id="loginForm">
+      <div class="form-group"><input type="text" id="loginUsername" placeholder="Username" required /></div>
+      <div class="form-group"><input type="password" id="loginPassword" placeholder="Password" required /></div>
+      <button type="submit">Login</button>
+      <p id="loginMessage" class="error"></p>
+    </form>
+    <p>Don't have an account? <span class="toggle-link" id="showRegister">Register here</span></p>
+  </div>
+
+  <div id="userList" class="hidden">
+    <h3>Registered Users</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th><th>Email</th><th>Mobile</th><th>DOB</th><th>City</th><th>Address</th>
+        </tr>
+      </thead>
+      <tbody id="userTableBody"></tbody>
+    </table>
+    <p><span class="toggle-link" id="logout">Logout</span></p>
+  </div>
+</div>
+
+<script>
+  // Helper: Validate email format
+  function isValidEmail(email) {
+    return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email);
+  }
+
+  // Helper: Simulated AJAX POST
+  function ajaxPost(url, data) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Simulate server push using localStorage
+        const users = JSON.parse(localStorage.getItem("users") || "[]");
+        users.push(data);
+        localStorage.setItem("users", JSON.stringify(users));
+        resolve({ status: "success" });
+      }, 500);
+    });
+  }
+
+  // Toggle between login and register forms
+  document.getElementById("showLogin").addEventListener("click", function() {
+    document.getElementById("registerSection").classList.add("hidden");
+    document.getElementById("loginSection").classList.remove("hidden");
+  });
+
+  document.getElementById("showRegister").addEventListener("click", function() {
+    document.getElementById("loginSection").classList.add("hidden");
+    document.getElementById("registerSection").classList.remove("hidden");
+  });
+
+  // Logout functionality
+  document.getElementById("logout").addEventListener("click", function() {
+    document.getElementById("userList").classList.add("hidden");
+    document.getElementById("loginSection").classList.remove("hidden");
+    document.getElementById("loginMessage").textContent = "";
+    document.getElementById("loginForm").reset();
+  });
+
+  // Register Form
+  document.getElementById("registerForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const dob = document.getElementById("dob").value;
+    const city = document.getElementById("city").value.trim();
+    const address = document.getElementById("address").value.trim();
+    const username = document.getElementById("regUsername").value.trim();
+    const password = document.getElementById("regPassword").value;
+
+    const msg = document.getElementById("registerMessage");
+    msg.textContent = '';
+
+    if (!name || !email || !mobile || !dob || !city || !address || !username || !password) {
+      msg.textContent = "All fields are required.";
+      return;
+    }
+
+    if (!isValidEmail(email)) {
+      msg.textContent = "Invalid email format.";
+      return;
+    }
+
+    if (!/^\d{10}$/.test(mobile)) {
+      msg.textContent = "Mobile must be 10 digits.";
+      return;
+    }
+
+    if (password.length < 6) {
+      msg.textContent = "Password must be at least 6 characters.";
+      return;
+    }
+
+    const userData = { name, email, mobile, dob, city, address, username, password };
+
+    const response = await ajaxPost("/register", userData);
+    if (response.status === "success") {
+      msg.textContent = "Registration successful!";
+      msg.className = "success";
+      this.reset();
+      
+      // Automatically switch to login after successful registration
+      setTimeout(() => {
+        document.getElementById("registerSection").classList.add("hidden");
+        document.getElementById("loginSection").classList.remove("hidden");
+        msg.textContent = "";
+      }, 1500);
+    }
+  });
+
+  // Login Form
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const username = document.getElementById("loginUsername").value.trim();
+    const password = document.getElementById("loginPassword").value;
+    const msg = document.getElementById("loginMessage");
+    msg.textContent = '';
+
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const user = users.find(u => u.username === username && u.password === password);
+
+    if (user) {
+      msg.textContent = "Login successful!";
+      msg.className = "success";
+      
+      // Hide login form and show user list
+      document.getElementById("loginSection").classList.add("hidden");
+      showUserList(users);
+    } else {
+      msg.textContent = "Invalid credentials.";
+    }
+  });
+
+  function showUserList(users) {
+    document.getElementById("userList").classList.remove("hidden");
+    const tbody = document.getElementById("userTableBody");
+    tbody.innerHTML = "";
+    users.forEach(user => {
+      const row = `<tr>
+        <td>${user.name}</td>
+        <td>${user.email}</td>
+        <td>${user.mobilde}</td>
+        <td>${user.dob}</td>
+        <td>${user.city}</td>
+        <td>${user.address}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+  }
+</script>
+</body>
+</html>

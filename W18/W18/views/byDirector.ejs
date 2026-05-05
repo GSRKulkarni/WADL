@@ -1,0 +1,53 @@
+<%- include('partials/header') %>
+
+<!-- (e) List specified Music Director songs -->
+<div class="page-header">
+  <h1>Songs by Music Director</h1>
+  <p>Search songs by a specific music director</p>
+</div>
+
+<div class="card">
+  <form action="/by-director" method="GET" class="search-form">
+    <div class="form-group">
+      <label for="director">Music Director Name</label>
+      <input type="text" id="director" name="director" placeholder="e.g. A.R. Rahman" value="<%= director %>" required />
+    </div>
+    <button type="submit" class="btn btn-primary">🔍 Search</button>
+  </form>
+</div>
+
+<% if (director) { %>
+  <span class="badge">Results for "<%= director %>": <%= songs.length %> song(s)</span>
+  <div class="card">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Song Name</th>
+            <th>Film</th>
+            <th>Music Director</th>
+            <th>Singer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (songs.length === 0) { %>
+            <tr><td colspan="5" class="no-results">No songs found for this music director.</td></tr>
+          <% } else { %>
+            <% songs.forEach((song, i) => { %>
+              <tr>
+                <td><%= i + 1 %></td>
+                <td><%= song.Songname %></td>
+                <td><%= song.Film %></td>
+                <td><%= song.Music_director %></td>
+                <td><%= song.Singer %></td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% } %>
+
+<%- include('partials/footer') %>

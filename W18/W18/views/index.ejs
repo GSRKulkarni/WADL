@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+
+<!-- (d) Display total count and list all documents -->
+<div class="page-header">
+  <h1>All Songs</h1>
+  <p>Complete song collection from the music database</p>
+</div>
+
+<% if (message) { %>
+  <div class="alert"><%= message %></div>
+<% } %>
+
+<span class="badge">Total Songs: <%= totalCount %></span>
+
+<!-- (k) Display data in browser in tabular format -->
+<div class="card">
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Song Name</th>
+          <th>Film</th>
+          <th>Music Director</th>
+          <th>Singer</th>
+          <th>Actor</th>
+          <th>Actress</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (songs.length === 0) { %>
+          <tr><td colspan="8" class="no-results">No songs found.</td></tr>
+        <% } else { %>
+          <% songs.forEach((song, i) => { %>
+            <tr>
+              <td><%= i + 1 %></td>
+              <td><%= song.Songname %></td>
+              <td><%= song.Film %></td>
+              <td><%= song.Music_director %></td>
+              <td><%= song.Singer %></td>
+              <td><%= song.Actor || '—' %></td>
+              <td><%= song.Actress || '—' %></td>
+              <td>
+                <div class="action-buttons">
+                  <!-- (j) Update song with Actor & Actress -->
+                  <a href="/update/<%= song._id %>" class="btn btn-success btn-sm">✏️ Update</a>
+                  <!-- (g) Delete song -->
+                  <form action="/delete/<%= song._id %>" method="POST" style="display:inline"
+                        onsubmit="return confirm('Delete this song?')">
+                    <button type="submit" class="btn btn-danger btn-sm">🗑️ Delete</button>
+                  </form>
+                </div>
+              </td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,30 @@
+<div class="card">
+  <h2>Remove a Student</h2>
+  {{MSG}}
+  <form class="inline-form" action="/students/delete" method="POST">
+    <label class="hint-text">Select Student:</label>
+    <select name="studentId" required>
+      <option value="">-- Select --</option>
+      {{OPTIONS}}
+    </select>
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete Student</button>
+  </form>
+  <h2 class="section-gap">Current Students</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Roll No</th>
+        <th>WAD</th>
+        <th>DSBDA</th>
+        <th>CNS</th>
+        <th>CC</th>
+        <th>AI</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{TABLE_ROWS}}
+    </tbody>
+  </table>
+</div>

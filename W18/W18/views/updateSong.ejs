@@ -1,0 +1,34 @@
+<%- include('partials/header') %>
+
+<!-- (j) Update the document by adding Actor and Actress name -->
+<div class="page-header">
+  <h1>Update Song</h1>
+  <p>Add Actor and Actress to "<%= song.Songname %>"</p>
+</div>
+
+<div class="card">
+  <div style="margin-bottom: 20px; padding: 16px; background: rgba(167,139,250,0.08); border-radius: 10px;">
+    <p><strong>Song:</strong> <%= song.Songname %></p>
+    <p><strong>Film:</strong> <%= song.Film %></p>
+    <p><strong>Music Director:</strong> <%= song.Music_director %></p>
+    <p><strong>Singer:</strong> <%= song.Singer %></p>
+  </div>
+
+  <form action="/update/<%= song._id %>" method="POST">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="Actor">Actor Name</label>
+        <input type="text" id="Actor" name="Actor" placeholder="Enter actor name"
+               value="<%= song.Actor || '' %>" required />
+      </div>
+      <div class="form-group">
+        <label for="Actress">Actress Name</label>
+        <input type="text" id="Actress" name="Actress" placeholder="Enter actress name"
+               value="<%= song.Actress || '' %>" required />
+      </div>
+    </div>
+    <button type="submit" class="btn btn-success">💾 Save Changes</button>
+  </form>
+</div>
+
+<%- include('partials/footer') %>
